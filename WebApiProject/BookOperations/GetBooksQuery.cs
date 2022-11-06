@@ -14,7 +14,7 @@ namespace WebApiProject.BookOperations
         }
 
 
-        public List<Book> Handle()
+        public List<BookViewModel> Handle()  //modele çevirdik
         {
             var bookList = _dbContext.Books.OrderBy(x => x.BookId).ToList<Book>();
             List<BookViewModel> vm = new List<BookViewModel>();
@@ -25,11 +25,11 @@ namespace WebApiProject.BookOperations
                     Name = item.Name,
                     PageCount = item.PageCount,
                     Genre = ((GenreEnum)item.GenreId).ToString(),
-                    PublishDate = item
-                })
+                    PublishDate = item.PublishDate.Date.ToString("dd/MM/yyy"),
+                });
 
             }
-            return bookList;
+            return vm;
         }
 
 
@@ -43,7 +43,7 @@ namespace WebApiProject.BookOperations
 
             public string Genre { get; set; }
 
-            public DateTime PublishDate { get; set; }
+            public string PublishDate { get; set; }
         }
 
 

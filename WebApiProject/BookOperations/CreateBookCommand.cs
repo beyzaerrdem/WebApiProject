@@ -5,7 +5,7 @@ namespace WebApiProject.BookOperations
 {
     public class CreateBookCommand
     {
-        public CreateBookModel Model { get; set; }
+        public CreateBookModel Model { get; set; } //entityi yaratıp gelen fieldları model içerisinde setlemek için
 
         private readonly BookStoreDbContext _dbContext;
 
@@ -17,7 +17,7 @@ namespace WebApiProject.BookOperations
 
         public void Handle()
         {
-            var book = _dbContext.Books.Where(x => x.Name == Model.Name);
+            var book = _dbContext.Books.SingleOrDefault(x => x.Name == Model.Name);
 
             if (book != null)
             {
@@ -25,10 +25,15 @@ namespace WebApiProject.BookOperations
             }
 
             book = new Book();
-            
+            book.Name = Model.Name;
+            book.PageCount = Model.PageCount;
+            book.PublishDate = Model.PublishDate;
+            book.GenreId = Model.GenreId;
+
+            _dbContext.Add(book);
+            _dbContext.SaveChanges();
+   
         }
-
-
 
         public class CreateBookModel
         {

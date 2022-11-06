@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApiProject.DbOperations;
 using WebApiProject.BookOperations;
+using static WebApiProject.BookOperations.CreateBookCommand;
 
 namespace WebApiProject.Controllers
 {
@@ -46,7 +47,7 @@ namespace WebApiProject.Controllers
 
 
         [HttpGet]
-        public IActionResult GetBooksList()
+        public IActionResult GetBooksList()  //oluşturulan modeli kullanmak
         {
             GetBooksQuery getBooksQuery = new GetBooksQuery(_context);
             var result = getBooksQuery.Handle();
@@ -63,19 +64,21 @@ namespace WebApiProject.Controllers
 
 
         [HttpPost]
-        public IActionResult AddBook([FromBody] Book b)
+        public IActionResult AddBook([FromBody] CreateBookModel b)
         {
-            var book = _context.Books.SingleOrDefault(x => x.Name == b.Name);
+            CreateBookCommand cm = new CreateBookCommand(_context); //dışarıdan context alıcak
 
-            if(book != null)
+            try
             {
-                return BadRequest();
+                cm.Model = b;
+                cm.Handle();
             }
-           
-                _context.Books.Add(b);
-                _context.SaveChanges();
-                return Ok();
-            
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }      
+                return Ok();  
         }
 
 
