@@ -8,6 +8,8 @@ using WebApiProject.BookOperations;
 using static WebApiProject.BookOperations.CreateBookCommand;
 using static WebApiProject.BookOperations.GetByIdQuery;
 using static WebApiProject.BookOperations.UpdateBookCommand;
+using static WebApiProject.BookOperations.DeleteBookCommand;
+using AutoMapper;
 
 namespace WebApiProject.Controllers
 {
@@ -17,33 +19,32 @@ namespace WebApiProject.Controllers
     {
 
         //private static List<Book> BookList = new List<Book>();
-        
-        private readonly BookStoreDbContext _context;
 
-            
-        public BooksController(BookStoreDbContext context)
+        private readonly BookStoreDbContext _context;
+        private readonly IMapper _mapper;
+
+        public BooksController(BookStoreDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-
-
-            //new Book
-            //{
-            //    BookId = 1,
-            //    Name = "Kitap",
-            //    PageCount= 199,
-            //    GenreId= 1,
-            //    PublishDate = new DateTime (2020,03,15)
-            //},
-            // new Book
-            //{
-            //    BookId = 2,
-            //    Name = "Deneme",
-            //    PageCount= 400,
-            //    GenreId= 2,
-            //    PublishDate = new DateTime (2015,08,22)
-            //}
+        //new Book
+        //{
+        //    BookId = 1,
+        //    Name = "Kitap",
+        //    PageCount= 199,
+        //    GenreId= 1,
+        //    PublishDate = new DateTime (2020,03,15)
+        //},
+        // new Book
+        //{
+        //    BookId = 2,
+        //    Name = "Deneme",
+        //    PageCount= 400,
+        //    GenreId= 2,
+        //    PublishDate = new DateTime (2015,08,22)
+        //}
         //};
 
 
@@ -51,7 +52,7 @@ namespace WebApiProject.Controllers
         [HttpGet]
         public IActionResult GetBooksList()  //oluşturulan modeli kullanmak
         {
-            GetBooksQuery getBooksQuery = new GetBooksQuery(_context);
+            GetBooksQuery getBooksQuery = new GetBooksQuery(_context,_mapper);
             var result = getBooksQuery.Handle();
             return Ok(result);
         }
@@ -60,7 +61,7 @@ namespace WebApiProject.Controllers
         [HttpGet("{id}")]
         public IActionResult GetBookListById(int id)
         {
-            GetByIdQuery getByIdQuery = new GetByIdQuery(_context);
+            GetByIdQuery getByIdQuery = new GetByIdQuery(_context,_mapper);
             BookGetByIdViewModel result;
             try
             {
@@ -69,10 +70,9 @@ namespace WebApiProject.Controllers
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
-           
+
             return Ok(result);
         }
 
@@ -80,7 +80,7 @@ namespace WebApiProject.Controllers
         [HttpPost]
         public IActionResult AddBook([FromBody] CreateBookModel b)
         {
-            CreateBookCommand cm = new CreateBookCommand(_context); //dışarıdan context alıcak
+            CreateBookCommand cm = new CreateBookCommand(_context,_mapper); //dışarıdan context alıcak
 
             try
             {
@@ -89,10 +89,9 @@ namespace WebApiProject.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
-            }      
-                return Ok();  
+            }
+            return Ok();
         }
 
 
@@ -111,34 +110,29 @@ namespace WebApiProject.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
-            }  
-             return Ok();
             }
+            return Ok();
         }
 
 
         [HttpDelete("{id}")]
-
         public IActionResult DeleteBook(int id)
         {
-         
-        DeleteBookCommand dc = new DeleteBookCommand(_context);
-     
-
-        try
-        {
-            dc.BookId = id;
-            dc.Handle();
+            DeleteBookCommand command = new DeleteBookCommand(_context);
+            try
+            {
+                command.BookId = id;
+                command.Handle();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
         }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        } 
-            return Ok();        
-        }
-       
     }
+}
+
 
 

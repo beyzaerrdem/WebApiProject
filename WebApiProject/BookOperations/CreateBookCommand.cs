@@ -1,4 +1,5 @@
-﻿using WebApiProject.DbOperations;
+﻿using AutoMapper;
+using WebApiProject.DbOperations;
 using WebApiProject.Entities;
 
 namespace WebApiProject.BookOperations
@@ -8,10 +9,12 @@ namespace WebApiProject.BookOperations
         public CreateBookModel Model { get; set; } //entityi yaratıp gelen fieldları model içerisinde setlemek için
 
         private readonly BookStoreDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public CreateBookCommand(BookStoreDbContext dbContext)
+        public CreateBookCommand(BookStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
 
 
@@ -24,11 +27,12 @@ namespace WebApiProject.BookOperations
                 throw new InvalidOperationException("Kitap zaten mevcut");
             }
 
-            book = new Book();
-            book.Name = Model.Name;
-            book.PageCount = Model.PageCount;
-            book.PublishDate = Model.PublishDate;
-            book.GenreId = Model.GenreId;
+            book = _mapper.Map<Book>(Model); //model ile gelen veriyi book'a maple
+            //book = new Book();
+            //book.Name = Model.Name; //maplemeden önceki hali
+            //book.PageCount = Model.PageCount;
+            //book.PublishDate = Model.PublishDate;
+            //book.GenreId = Model.GenreId;
 
             _dbContext.Add(book);
             _dbContext.SaveChanges();

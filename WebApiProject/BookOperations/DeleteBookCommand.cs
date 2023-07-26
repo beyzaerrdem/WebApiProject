@@ -5,24 +5,24 @@ namespace WebApiProject.BookOperations
     public class DeleteBookCommand
     {
         private readonly BookStoreDbContext _dbcontext;
-        public DeleteBookCommand(BookStoreDbContext dbContext)
+
+        public DeleteBookCommand(BookStoreDbContext dbcontext)
         {
-            _dbcontext = dbContext;
+            _dbcontext = dbcontext;
         }
 
         public int BookId { get; set; }
 
         public void Handle()
         {
-            var book = _dbcontext.Books.Where(Book => Book.BookId == BookId).SingleOrDefault();
+            var book = _dbcontext.Books.SingleOrDefault(x => x.BookId == BookId);
 
             if (book == null)
             {
                 throw new InvalidOperationException("Silinecek kitap bulunamadı.");
             }   
-                _dbcontext.Books.Remove(book);
-                _dbcontext.SaveChanges();
-                
+            _dbcontext.Books.Remove(book);
+            _dbcontext.SaveChanges();              
         }
     }
 }

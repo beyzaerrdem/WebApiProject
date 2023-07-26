@@ -1,5 +1,6 @@
 ﻿
 
+using AutoMapper;
 using WebApiProject.Coomon;
 using WebApiProject.DbOperations;
 
@@ -8,10 +9,12 @@ namespace WebApiProject.BookOperations
     public class GetByIdQuery
     {
         private readonly BookStoreDbContext _dbcontext;
+        private readonly IMapper _mapper;
 
-        public GetByIdQuery(BookStoreDbContext dbcontext)
+        public GetByIdQuery(BookStoreDbContext dbcontext, IMapper mapper)
         {
             _dbcontext = dbcontext;
+            _mapper = mapper;
         }
 
         public int BookId { get; set; }
@@ -20,25 +23,22 @@ namespace WebApiProject.BookOperations
         public BookGetByIdViewModel Handle()
         {
             //getBooks gibi list yapmadık çünkü liste deil idye göre
-            var book = _dbcontext.Books.Where(Book => Book.BookId == BookId).SingleOrDefault(); 
+            var book = _dbcontext.Books.Where(x => x.BookId == BookId).SingleOrDefault(); 
             if(book is null)
             {
                 throw new InvalidOperationException("Kitap bulunamadı.");
             }
-            BookGetByIdViewModel bm = new BookGetByIdViewModel();
-            bm.Name = book.Name;
-            bm.PageCount = book.PageCount;
-            bm.PublishDate = book.PublishDate.Date.ToString("dd/MM/yyy");
-            bm.Genre = ((GenreEnum)book.GenreId).ToString();
+            BookGetByIdViewModel bm = _mapper.Map<BookGetByIdViewModel>(book); //new BookGetByIdViewModel();
+            //bm.Name = book.Name;
+            //bm.PageCount = book.PageCount;
+            //bm.PublishDate = book.PublishDate.Date.ToString("dd/MM/yyy");
+            //bm.Genre = ((GenreEnum)book.GenreId).ToString();
                           
             return bm;
         }
 
-
-
         public class BookGetByIdViewModel
-        {
-         
+        {        
             public string Name { get; set; }
 
             public int PageCount { get; set; }
@@ -47,9 +47,5 @@ namespace WebApiProject.BookOperations
 
             public string PublishDate { get; set; }
         }
-
-
-
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using WebApiProject.Coomon;
+﻿using AutoMapper;
+using WebApiProject.Coomon;
 using WebApiProject.DbOperations;
 using WebApiProject.Entities;
 
@@ -7,33 +8,32 @@ namespace WebApiProject.BookOperations
     public class GetBooksQuery
     {
         private readonly BookStoreDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public GetBooksQuery(BookStoreDbContext dbContext)
+        public GetBooksQuery(BookStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+            _mapper = mapper;
         }
-
 
         public List<BookViewModel> Handle()  //modele çevirdik
         {
             var bookList = _dbContext.Books.OrderBy(x => x.BookId).ToList<Book>();
-            List<BookViewModel> vm = new List<BookViewModel>();
-            foreach (var item in bookList)
-            {
-                vm.Add(new BookViewModel()
-                {
-                    Name = item.Name,
-                    PageCount = item.PageCount,
-                    Genre = ((GenreEnum)item.GenreId).ToString(),
-                    PublishDate = item.PublishDate.Date.ToString("dd/MM/yyy"),
-                });
+            List<BookViewModel> vm = _mapper.Map<List<BookViewModel>>(bookList);
+            //new List<BookViewModel>();
+            //foreach (var item in bookList)
+            //{
+            //    vm.Add(new BookViewModel()
+            //    {
+            //        Name = item.Name,
+            //        PageCount = item.PageCount,
+            //        Genre = ((GenreEnum)item.GenreId).ToString(),
+            //        PublishDate = item.PublishDate.Date.ToString("dd/MM/yyy"),
+            //    });
 
-            }
+            //}
             return vm;
         }
-
-
-
 
         public class BookViewModel
         {
@@ -45,7 +45,5 @@ namespace WebApiProject.BookOperations
 
             public string PublishDate { get; set; }
         }
-
-
     }
 }

@@ -36,7 +36,6 @@ namespace WebApiProject.BookOperations
             public string Name { get; set; }
 
             public int GenreId { get; set; }
-
         }
     }
 }
