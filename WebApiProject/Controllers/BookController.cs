@@ -10,6 +10,10 @@ using static WebApiProject.BookOperations.GetByIdQuery;
 using static WebApiProject.BookOperations.UpdateBookCommand;
 using static WebApiProject.BookOperations.DeleteBookCommand;
 using AutoMapper;
+using WebApiProject.Validator;
+using FluentValidation.Results;
+using FluentValidation;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApiProject.Controllers
 {
@@ -66,6 +70,8 @@ namespace WebApiProject.Controllers
             try
             {
                 getByIdQuery.BookId = id;
+                GetByIdValidator validator = new GetByIdValidator();
+                validator.ValidateAndThrow(getByIdQuery);
                 result = getByIdQuery.Handle();
             }
             catch (Exception e)
@@ -85,6 +91,9 @@ namespace WebApiProject.Controllers
             try
             {
                 cm.Model = b;
+                CreateBookValidator validator = new CreateBookValidator();
+                //ValidationResult result = validator.Validate(cm);
+                validator.ValidateAndThrow(cm);
                 cm.Handle();
             }
             catch (Exception ex)
@@ -96,7 +105,6 @@ namespace WebApiProject.Controllers
 
 
         [HttpPut("{id}")]
-
         public IActionResult UpdateBook(int id, [FromBody] UpdateBookModel u)
         {
             var book = _context.Books.SingleOrDefault(x => x.BookId == id);
@@ -106,6 +114,8 @@ namespace WebApiProject.Controllers
             {
                 ub.BookId = id;
                 ub.Model = u;
+                UpdateBookValidator validator = new UpdateBookValidator();
+                validator.ValidateAndThrow(ub);
                 ub.Handle();
             }
             catch (Exception ex)
@@ -123,6 +133,8 @@ namespace WebApiProject.Controllers
             try
             {
                 command.BookId = id;
+                DeleteBookValidator validator = new DeleteBookValidator();
+                validator.ValidateAndThrow(command);
                 command.Handle();
             }
             catch (Exception ex)
