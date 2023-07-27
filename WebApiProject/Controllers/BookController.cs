@@ -33,26 +33,6 @@ namespace WebApiProject.Controllers
             _mapper = mapper;
         }
 
-        //new Book
-        //{
-        //    BookId = 1,
-        //    Name = "Kitap",
-        //    PageCount= 199,
-        //    GenreId= 1,
-        //    PublishDate = new DateTime (2020,03,15)
-        //},
-        // new Book
-        //{
-        //    BookId = 2,
-        //    Name = "Deneme",
-        //    PageCount= 400,
-        //    GenreId= 2,
-        //    PublishDate = new DateTime (2015,08,22)
-        //}
-        //};
-
-
-
         [HttpGet]
         public IActionResult GetBooksList()  //oluşturulan modeli kullanmak
         {

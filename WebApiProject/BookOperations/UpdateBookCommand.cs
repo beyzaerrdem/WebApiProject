@@ -25,9 +25,7 @@ namespace WebApiProject.BookOperations
 
             book.Name = Model.Name != default ? Model.Name : book.Name; //defaulttan farklı trueysa Model falsed
             book.GenreId = Model.GenreId != default ? Model.GenreId : book.GenreId;
-            //book.PageCount = Model.PageCount != default ? Model.PageCount : book.PageCount;
-            //book.PublishDate = Model.PublishDate != default ? Model.PublishDate : book.PublishDate;
-
+     
             _dbcontext.SaveChanges();
         }
 

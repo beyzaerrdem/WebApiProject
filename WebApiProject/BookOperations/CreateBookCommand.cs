@@ -28,11 +28,6 @@ namespace WebApiProject.BookOperations
             }
 
             book = _mapper.Map<Book>(Model); //model ile gelen veriyi book'a maple
-            //book = new Book();
-            //book.Name = Model.Name; //maplemeden önceki hali
-            //book.PageCount = Model.PageCount;
-            //book.PublishDate = Model.PublishDate;
-            //book.GenreId = Model.GenreId;
 
             _dbContext.Add(book);
             _dbContext.SaveChanges();

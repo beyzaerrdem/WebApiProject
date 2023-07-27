@@ -20,18 +20,7 @@ namespace WebApiProject.BookOperations
         {
             var bookList = _dbContext.Books.OrderBy(x => x.BookId).ToList<Book>();
             List<BookViewModel> vm = _mapper.Map<List<BookViewModel>>(bookList);
-            //new List<BookViewModel>();
-            //foreach (var item in bookList)
-            //{
-            //    vm.Add(new BookViewModel()
-            //    {
-            //        Name = item.Name,
-            //        PageCount = item.PageCount,
-            //        Genre = ((GenreEnum)item.GenreId).ToString(),
-            //        PublishDate = item.PublishDate.Date.ToString("dd/MM/yyy"),
-            //    });
 
-            //}
             return vm;
         }
 

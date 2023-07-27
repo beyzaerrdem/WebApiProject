@@ -28,11 +28,7 @@ namespace WebApiProject.BookOperations
             {
                 throw new InvalidOperationException("Kitap bulunamadı.");
             }
-            BookGetByIdViewModel bm = _mapper.Map<BookGetByIdViewModel>(book); //new BookGetByIdViewModel();
-            //bm.Name = book.Name;
-            //bm.PageCount = book.PageCount;
-            //bm.PublishDate = book.PublishDate.Date.ToString("dd/MM/yyy");
-            //bm.Genre = ((GenreEnum)book.GenreId).ToString();
+            BookGetByIdViewModel bm = _mapper.Map<BookGetByIdViewModel>(book); 
                           
             return bm;
         }
