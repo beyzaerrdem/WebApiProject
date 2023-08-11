@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using WebApiProject.Coomon;
 using WebApiProject.Entities;
+using static WebApiProject.Services.AuthorOperations.CreateAuthorCommand;
+using static WebApiProject.Services.AuthorOperations.GetAuthorsQuery;
+using static WebApiProject.Services.AuthorOperations.GetByIdAuthorQuery;
 using static WebApiProject.Services.BookOperations.CreateBookCommand;
 using static WebApiProject.Services.BookOperations.GetBooksQuery;
 using static WebApiProject.Services.BookOperations.GetByIdQuery;
@@ -22,6 +25,9 @@ namespace WebApiProject.Mapping
             CreateMap<Genre, GenreGetByIdViewModel>();
             CreateMap<CreateGenreModel, Genre>();
 
+            CreateMap<Author, AuthorViewModel>();
+            CreateMap<Author, AuthorGetByIdModel>();
+            CreateMap<CreateAuthorModel,Author>();
         }
     }
 }

@@ -22,6 +22,13 @@ namespace WebApiProject.DbOperations
                     Name = "science fiction"
                 });
 
+                context.Authors.AddRange(new Author
+                {
+                    Name = "Beyza",
+                    Surname = "Erdem",
+                    BirthdayDate = new DateTime(2000, 04, 02)
+                });
+
                 context.Books.AddRange(new Book
                 {
                     BookId = 8,
