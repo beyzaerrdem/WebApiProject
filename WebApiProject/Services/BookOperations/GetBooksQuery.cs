@@ -3,7 +3,7 @@ using WebApiProject.Coomon;
 using WebApiProject.DbOperations;
 using WebApiProject.Entities;
 
-namespace WebApiProject.BookOperations
+namespace WebApiProject.Services.BookOperations
 {
     public class GetBooksQuery
     {
@@ -18,7 +18,7 @@ namespace WebApiProject.BookOperations
 
         public List<BookViewModel> Handle()  //modele çevirdik
         {
-            var bookList = _dbContext.Books.OrderBy(x => x.BookId).ToList<Book>();
+            var bookList = _dbContext.Books.OrderBy(x => x.BookId).ToList();
             List<BookViewModel> vm = _mapper.Map<List<BookViewModel>>(bookList);
 
             return vm;

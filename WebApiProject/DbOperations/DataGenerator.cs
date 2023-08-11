@@ -14,6 +14,14 @@ namespace WebApiProject.DbOperations
                     return;
                 }
 
+                context.Genres.AddRange(new Genre{
+                    Name = "personel growth"
+                },
+                new Genre
+                {
+                    Name = "science fiction"
+                });
+
                 context.Books.AddRange(new Book
                 {
                     BookId = 8,

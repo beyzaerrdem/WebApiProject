@@ -1,6 +1,6 @@
 ﻿using WebApiProject.DbOperations;
 
-namespace WebApiProject.BookOperations
+namespace WebApiProject.Services.BookOperations
 {
     public class UpdateBookCommand
     {
@@ -18,14 +18,14 @@ namespace WebApiProject.BookOperations
         {
             var book = _dbcontext.Books.SingleOrDefault(x => x.BookId == BookId);
 
-            if (book != null)
+            if (book == null)
             {
                 throw new InvalidOperationException("Güncellenecek kitap bulunamadı");
             }
 
             book.Name = Model.Name != default ? Model.Name : book.Name; //defaulttan farklı trueysa Model falsed
             book.GenreId = Model.GenreId != default ? Model.GenreId : book.GenreId;
-     
+
             _dbcontext.SaveChanges();
         }
 

@@ -2,7 +2,7 @@
 using WebApiProject.DbOperations;
 using WebApiProject.Entities;
 
-namespace WebApiProject.BookOperations
+namespace WebApiProject.Services.BookOperations
 {
     public class CreateBookCommand
     {
@@ -31,7 +31,7 @@ namespace WebApiProject.BookOperations
 
             _dbContext.Add(book);
             _dbContext.SaveChanges();
-   
+
         }
 
         public class CreateBookModel

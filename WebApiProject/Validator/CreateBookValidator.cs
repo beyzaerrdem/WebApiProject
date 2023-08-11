@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
-using WebApiProject.BookOperations;
-using static WebApiProject.BookOperations.CreateBookCommand;
+using WebApiProject.Services.BookOperations;
 
 namespace WebApiProject.Validator
 {

@@ -1,6 +1,6 @@
 ﻿using WebApiProject.DbOperations;
 
-namespace WebApiProject.BookOperations
+namespace WebApiProject.Services.BookOperations
 {
     public class DeleteBookCommand
     {
@@ -20,9 +20,9 @@ namespace WebApiProject.BookOperations
             if (book == null)
             {
                 throw new InvalidOperationException("Silinecek kitap bulunamadı.");
-            }   
+            }
             _dbcontext.Books.Remove(book);
-            _dbcontext.SaveChanges();              
+            _dbcontext.SaveChanges();
         }
     }
 }

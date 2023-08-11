@@ -4,16 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebApiProject.DbOperations;
-using WebApiProject.BookOperations;
-using static WebApiProject.BookOperations.CreateBookCommand;
-using static WebApiProject.BookOperations.GetByIdQuery;
-using static WebApiProject.BookOperations.UpdateBookCommand;
-using static WebApiProject.BookOperations.DeleteBookCommand;
+using static WebApiProject.Services.BookOperations.CreateBookCommand;
+using static WebApiProject.Services.BookOperations.GetByIdQuery;
+using static WebApiProject.Services.BookOperations.UpdateBookCommand;
+using static WebApiProject.Services.BookOperations.DeleteBookCommand;
 using AutoMapper;
 using WebApiProject.Validator;
 using FluentValidation.Results;
 using FluentValidation;
 using System.ComponentModel.DataAnnotations;
+using WebApiProject.Services.BookOperations;
 
 namespace WebApiProject.Controllers
 {

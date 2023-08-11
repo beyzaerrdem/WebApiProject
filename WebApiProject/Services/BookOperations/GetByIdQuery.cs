@@ -4,7 +4,7 @@ using AutoMapper;
 using WebApiProject.Coomon;
 using WebApiProject.DbOperations;
 
-namespace WebApiProject.BookOperations
+namespace WebApiProject.Services.BookOperations
 {
     public class GetByIdQuery
     {
@@ -23,18 +23,18 @@ namespace WebApiProject.BookOperations
         public BookGetByIdViewModel Handle()
         {
             //getBooks gibi list yapmadık çünkü liste deil idye göre
-            var book = _dbcontext.Books.Where(x => x.BookId == BookId).SingleOrDefault(); 
-            if(book is null)
+            var book = _dbcontext.Books.Where(x => x.BookId == BookId).SingleOrDefault();
+            if (book is null)
             {
                 throw new InvalidOperationException("Kitap bulunamadı.");
             }
-            BookGetByIdViewModel bm = _mapper.Map<BookGetByIdViewModel>(book); 
-                          
+            BookGetByIdViewModel bm = _mapper.Map<BookGetByIdViewModel>(book);
+
             return bm;
         }
 
         public class BookGetByIdViewModel
-        {        
+        {
             public string Name { get; set; }
 
             public int PageCount { get; set; }
