@@ -1,19 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebApiProject.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AutoMapper;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using WebApiProject.DbOperations;
+using WebApiProject.Services.BookOperations;
+using WebApiProject.Validator;
 using static WebApiProject.Services.BookOperations.CreateBookCommand;
 using static WebApiProject.Services.BookOperations.GetByIdQuery;
 using static WebApiProject.Services.BookOperations.UpdateBookCommand;
-using static WebApiProject.Services.BookOperations.DeleteBookCommand;
-using AutoMapper;
-using WebApiProject.Validator;
-using FluentValidation.Results;
-using FluentValidation;
-using System.ComponentModel.DataAnnotations;
-using WebApiProject.Services.BookOperations;
 
 namespace WebApiProject.Controllers
 {

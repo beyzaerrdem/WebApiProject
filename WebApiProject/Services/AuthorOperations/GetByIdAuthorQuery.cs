@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using WebApiProject.DbOperations;
-using WebApiProject.Entities;
 
 namespace WebApiProject.Services.AuthorOperations
 {

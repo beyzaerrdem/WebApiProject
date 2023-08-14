@@ -70,7 +70,7 @@ namespace WebApiProject.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult UpdateGenre(int id,[FromBody] UpdateGenreModel model)
         {
             var genre = _context.Genres.SingleOrDefault(x => x.Id == id);
