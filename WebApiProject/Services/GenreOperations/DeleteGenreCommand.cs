@@ -5,9 +5,9 @@ namespace WebApiProject.Services.GenreOperations
 {
     public class DeleteGenreCommand
     {
-        public readonly BookStoreDbContext _dbContext;
+        public readonly IBookStoreDbContext _dbContext;
 
-        public DeleteGenreCommand(BookStoreDbContext dbContext)
+        public DeleteGenreCommand(IBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -16,14 +16,14 @@ namespace WebApiProject.Services.GenreOperations
 
         public void Handle()
         {
-            var genre = _dbContext.Genres.Where(x => x.Id == GenreId);
+            var genre = _dbContext.Genres.SingleOrDefault(x => x.Id == GenreId);
 
             if(genre == null)
             {
                 throw new Exception("Kategori bulunamadı.");
             }
 
-            _dbContext.Remove(genre);
+            _dbContext.Genres.Remove(genre);
             _dbContext.SaveChanges();
         }
     }

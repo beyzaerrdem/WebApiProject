@@ -4,8 +4,8 @@ namespace WebApiProject.Services.AuthorOperations
 {
     public class DeleteAuthorCommand
     {
-        public readonly BookStoreDbContext _dbContext;
-        public DeleteAuthorCommand(BookStoreDbContext dbContext) 
+        public readonly IBookStoreDbContext _dbContext;
+        public DeleteAuthorCommand(IBookStoreDbContext dbContext) 
         { 
             _dbContext = dbContext;
         }
@@ -20,7 +20,7 @@ namespace WebApiProject.Services.AuthorOperations
             {
                 throw new InvalidOperationException("Silinecek yazar bulunamadı");
             }
-            _dbContext.Remove(author);
+            _dbContext.Authors.Remove(author);
             _dbContext.SaveChanges();
         }
     }

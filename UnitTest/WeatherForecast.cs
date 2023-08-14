@@ -1,4 +1,4 @@
-namespace WebApiProject
+namespace UnitTest
 {
     public class WeatherForecast
     {

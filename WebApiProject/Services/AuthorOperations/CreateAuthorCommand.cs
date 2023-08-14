@@ -9,10 +9,10 @@ namespace WebApiProject.Services.AuthorOperations
     {
         public CreateAuthorModel model { get; set; }
 
-        public readonly BookStoreDbContext _dbContext;
+        public readonly IBookStoreDbContext _dbContext;
         public readonly IMapper _mapper;
 
-        public CreateAuthorCommand(BookStoreDbContext dbContext, IMapper mapper) 
+        public CreateAuthorCommand(IBookStoreDbContext dbContext, IMapper mapper) 
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -28,9 +28,9 @@ namespace WebApiProject.Services.AuthorOperations
                 throw new InvalidOperationException("Yazar zaten mevcut");
             }
 
-            var author = _mapper.Map<Author>(auth);
+            var author = _mapper.Map<Author>(model);
 
-            _dbContext.Add(author);
+            _dbContext.Authors.Add(author);
             _dbContext.SaveChanges();
         }
 

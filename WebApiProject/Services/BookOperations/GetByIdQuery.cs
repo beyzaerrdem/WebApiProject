@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using WebApiProject.Coomon;
 using WebApiProject.DbOperations;
 
@@ -8,10 +6,10 @@ namespace WebApiProject.Services.BookOperations
 {
     public class GetByIdQuery
     {
-        private readonly BookStoreDbContext _dbcontext;
+        private readonly IBookStoreDbContext _dbcontext;
         private readonly IMapper _mapper;
 
-        public GetByIdQuery(BookStoreDbContext dbcontext, IMapper mapper)
+        public GetByIdQuery(IBookStoreDbContext dbcontext, IMapper mapper)
         {
             _dbcontext = dbcontext;
             _mapper = mapper;

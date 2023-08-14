@@ -4,8 +4,8 @@ namespace WebApiProject.Services.BookOperations
 {
     public class UpdateBookCommand
     {
-        private readonly BookStoreDbContext _dbcontext;
-        public UpdateBookCommand(BookStoreDbContext dbContext)
+        private readonly IBookStoreDbContext _dbcontext;
+        public UpdateBookCommand(IBookStoreDbContext dbContext)
         {
             _dbcontext = dbContext;
         }

@@ -5,9 +5,9 @@ namespace WebApiProject.Services.AuthorOperations
 {
     public class UpdateAuthorCommand
     {
-        public readonly BookStoreDbContext _dbContext;
+        public readonly IBookStoreDbContext _dbContext;
         public readonly IMapper _mapper;
-        public UpdateAuthorCommand(BookStoreDbContext dbContext, IMapper mapper) 
+        public UpdateAuthorCommand(IBookStoreDbContext dbContext, IMapper mapper) 
         { 
             _dbContext = dbContext;
             _mapper = mapper;

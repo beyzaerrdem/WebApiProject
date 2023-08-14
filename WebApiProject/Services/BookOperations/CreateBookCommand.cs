@@ -8,10 +8,10 @@ namespace WebApiProject.Services.BookOperations
     {
         public CreateBookModel Model { get; set; } //entityi yaratıp gelen fieldları model içerisinde setlemek için
 
-        private readonly BookStoreDbContext _dbContext;
+        private readonly IBookStoreDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public CreateBookCommand(BookStoreDbContext dbContext, IMapper mapper)
+        public CreateBookCommand(IBookStoreDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -29,7 +29,7 @@ namespace WebApiProject.Services.BookOperations
 
             book = _mapper.Map<Book>(Model); //model ile gelen veriyi book'a maple
 
-            _dbContext.Add(book);
+            _dbContext.Books.Add(book);
             _dbContext.SaveChanges();
 
         }

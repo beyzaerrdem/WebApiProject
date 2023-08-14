@@ -5,10 +5,10 @@ namespace WebApiProject.Services.AuthorOperations
 {
     public class GetAuthorsQuery
     {
-        public readonly BookStoreDbContext _dbContext;
+        public readonly IBookStoreDbContext _dbContext;
         public readonly IMapper _mapper;
 
-        public GetAuthorsQuery(BookStoreDbContext dbContext, IMapper mapper) 
+        public GetAuthorsQuery(IBookStoreDbContext dbContext, IMapper mapper) 
         { 
             _dbContext = dbContext;
             _mapper = mapper;

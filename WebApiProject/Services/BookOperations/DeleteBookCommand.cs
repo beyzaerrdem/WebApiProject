@@ -4,9 +4,9 @@ namespace WebApiProject.Services.BookOperations
 {
     public class DeleteBookCommand
     {
-        private readonly BookStoreDbContext _dbcontext;
+        private readonly IBookStoreDbContext _dbcontext;
 
-        public DeleteBookCommand(BookStoreDbContext dbcontext)
+        public DeleteBookCommand(IBookStoreDbContext dbcontext)
         {
             _dbcontext = dbcontext;
         }
